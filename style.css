@@ -1,0 +1,157 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Quiz Card */
+.quiz-container {
+    background: #ffffff;
+    width: 420px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: left;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Heading */
+.quiz-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Question */
+#question {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* Options list */
+ul {
+    list-style: none;
+}
+
+ul li {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+
+/* Hover effect */
+ul li:hover {
+    background: #f1f3ff;
+    border-color: #667eea;
+}
+
+/* Radio button spacing */
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: #667eea;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover */
+button:hover {
+    background: #5a67d8;
+}
+
+h1 {
+    font-size: 18pt;
+}
+/* Result styling */
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Option box styling */
+.option {
+    display: block;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Hover */
+.option:hover {
+    background: #f1f3ff;
+    border-color: #667eea;
+}
+
+/* Hide default radio */
+.option input {
+    display: none;
+}
+
+/* Selected option */
+.option input:checked + span {
+    display: block;
+    background: #667eea;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* Correct answer */
+.correct {
+    background: #28a745 !important;
+    color: white;
+    border-color: #28a745 !important;
+}
+
+/* Wrong answer */
+.wrong {
+    background: #dc3545 !important;
+    color: white;
+    border-color: #dc3545 !important;
+}
+
+#progress {
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #667eea;
+}
