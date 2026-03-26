@@ -2,18 +2,28 @@
 // USER REGISTER FUNCTION
 // ===============================
 function register(event) {
-    event.preventDefault(); // stop form reload
+    event.preventDefault();
 
     let username = document.getElementById("newUser").value;
     let password = document.getElementById("newPass").value;
 
-    // Save user data in localStorage
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
+    // Get existing users OR empty object
+    let users = JSON.parse(localStorage.getItem("users")) || {};
+
+    // Check if user already exists
+    if (users[username]) {
+        alert("User already exists!");
+        return;
+    }
+
+    // Add new user
+    users[username] = password;
+
+    // Save back to localStorage
+    localStorage.setItem("users", JSON.stringify(users));
 
     alert("Registration Successful!");
 
-    // Redirect to login page
     window.location.href = "index.html";
 }
 
@@ -27,14 +37,13 @@ function login(event) {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
-    let storedUser = localStorage.getItem("username");
-    let storedPass = localStorage.getItem("password");
+    let users = JSON.parse(localStorage.getItem("users")) || {};
 
-    // Check username & password
-    if (username === storedUser && password === storedPass) {
+    // Check user
+    if (users[username] && users[username] === password) {
 
-        // Save login session
         localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("currentUser", username); // ✅ important
 
         alert("Login Successful!");
 
@@ -50,7 +59,8 @@ function login(event) {
 // LOGOUT FUNCTION
 // ===============================
 function logout() {
-    localStorage.removeItem("loggedIn"); // remove session
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("currentUser");
     window.location.href = "index.html";
 }
 
@@ -61,7 +71,7 @@ function logout() {
 function checkLoginAndShowUser() {
 
     let isLoggedIn = localStorage.getItem("loggedIn");
-    let user = localStorage.getItem("username");
+    let user = localStorage.getItem("currentUser");
 
     // If not logged in → go to login page
     if (isLoggedIn !== "true") {
@@ -73,6 +83,7 @@ function checkLoginAndShowUser() {
     let welcomeText = document.getElementById("welcome");
 
     if (welcomeText) {
+        let user = localStorage.getItem("currentUser");
         welcomeText.innerText = "Welcome, " + user;
     }
 }
@@ -250,7 +261,7 @@ if (document.getElementById("next")) {
 // ===============================
 function showResult() {
 
-    let user = localStorage.getItem("username");
+    let user = localStorage.getItem("currentUser");
 
     let allResults = JSON.parse(localStorage.getItem("results")) || {};
 
@@ -275,7 +286,7 @@ function showResult() {
 // ===============================
 if (document.getElementById("resultData")) {
 
-    let user = localStorage.getItem("username");
+    let user = localStorage.getItem("currentUser");
     let allResults = JSON.parse(localStorage.getItem("results")) || {};
     let data = allResults[user];
 
