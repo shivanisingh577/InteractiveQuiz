@@ -1,52 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quiz Website</title>
+    <title>Login - Interactive Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="quiz-container">
-    <h1>Interactive Quiz using HTML, CSS and JavaScript</h1>
+<!-- Login Form -->
+<div class="form-container">
 
-    <div id="progress"></div>
-    
-    <div id="question">Question here</div>
+    <h2>Login</h2>
 
-    <ul>
-        <li>
-  <label class="option">
-    <input type="radio" name="answer" class="answer" id="a">
-    <span id="a_text"></span>
-  </label>
-</li>
+    <form onsubmit="login(event)">
 
-<li>
-  <label class="option">
-    <input type="radio" name="answer" class="answer" id="b">
-    <span id="b_text"></span>
-  </label>
-</li>
+        <!-- Username -->
+        <input type="text" id="username" placeholder="Enter Username" required>
 
-<li>
-  <label class="option">
-    <input type="radio" name="answer" class="answer" id="c">
-    <span id="c_text"></span>
-  </label>
-</li>
+        <!-- Password -->
+        <input type="password" id="password" placeholder="Enter Password" required>
 
-<li>
-  <label class="option">
-    <input type="radio" name="answer" class="answer" id="d">
-    <span id="d_text"></span>
-  </label>
-</li>
+        <!-- Submit -->
+        <button type="submit">Login</button>
 
-    </ul>
+    </form>
 
-    <button id="submit">Next</button>
+    <p>New user? <a href="register.html">Register here</a></p>
+
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Module - Interactive Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="quiz-container">
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <span id="welcome"></span>
+        <button onclick="logout()" class="logout-btn">Logout</button>
+    </div>
+
+    <h2>Select Module</h2>
+
+    <!-- Module Buttons -->
+
+    <button onclick="startQuiz('M1')" class="module-btn">
+        <span class="code">M1-R5.1</span>
+        <span class="title">Information Technology Tools & Network Basics</span>
+    </button>
+
+    <button onclick="startQuiz('M2')" class="module-btn">
+        <span class="code">M2-R5.1</span>
+        <span class="title">Web Designing & Publishing</span>
+    </button>
+
+    <button onclick="startQuiz('M3')" class="module-btn">
+        <span class="code">M3-R5.1</span>
+        <span class="title">Programming & Problem Solving through Python</span>
+    </button>
+
+    <button onclick="startQuiz('M4')" class="module-btn">
+        <span class="code">M4-R5.1</span>
+        <span class="title">Internet of Things & its Applications</span>
+    </button>
+
+    <button onclick="viewPerformance()">View Performance</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
