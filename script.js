@@ -4,22 +4,23 @@
 function register(event) {
     event.preventDefault();
 
-    let username = document.getElementById("newUser").value;
-    let password = document.getElementById("newPass").value;
+    let username = document.getElementById("newUser").value.trim();
+    let password = document.getElementById("newPass").value.trim();
 
-    // Get existing users OR empty object
+    if (username === "" || password === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
     let users = JSON.parse(localStorage.getItem("users")) || {};
 
-    // Check if user already exists
     if (users[username]) {
         alert("User already exists!");
         return;
     }
 
-    // Add new user
     users[username] = password;
 
-    // Save back to localStorage
     localStorage.setItem("users", JSON.stringify(users));
 
     alert("Registration Successful!");
@@ -34,16 +35,15 @@ function register(event) {
 function login(event) {
     event.preventDefault();
 
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
 
     let users = JSON.parse(localStorage.getItem("users")) || {};
 
-    // Check user
     if (users[username] && users[username] === password) {
 
         localStorage.setItem("loggedIn", "true");
-        localStorage.setItem("currentUser", username); // ✅ important
+        localStorage.setItem("currentUser", username);
 
         alert("Login Successful!");
 
@@ -83,7 +83,6 @@ function checkLoginAndShowUser() {
     let welcomeText = document.getElementById("welcome");
 
     if (welcomeText) {
-        let user = localStorage.getItem("currentUser");
         welcomeText.innerText = "Welcome, " + user;
     }
 }
@@ -165,6 +164,8 @@ const chapterNames = {
 // ===============================
 // QUIZ VARIABLES
 // ===============================
+// store all answers of user
+let userAnswers = [];
 let currentQuestion = 0;
 let score = 0;
 
@@ -172,8 +173,10 @@ let score = 0;
 let module = localStorage.getItem("module");
 
 // Filter questions based on module
+if (!quizData || !module) {
+    console.log("Quiz data or module missing");
+}
 let filtered = quizData.filter(q => q.module === module);
-
 
 // ===============================
 // LOAD QUESTION
@@ -200,27 +203,13 @@ function loadQuestion() {
         "Question " + (currentQuestion + 1) + "/" + filtered.length;
 
     // Clear previous selection
-    document.querySelectorAll('input[name="answer"]').forEach(input => {
-        input.checked = false;
-    });
+let options = document.getElementsByName("answer");
+for (let i = 0; i < options.length; i++) {
+    options[i].checked = false;
 }
 
-
-// ===============================
-// GET SELECTED ANSWER
-// ===============================
-function getSelectedAnswer() {
-
-    let answers = document.querySelectorAll('input[name="answer"]');
-    let selected = null;
-
-    answers.forEach(ans => {
-        if (ans.checked) {
-            selected = ans.value;
-        }
-    });
-
-    return selected;
+let solutionText = document.getElementById("solutionText");
+if (solutionText) solutionText.style.display = "none";
 }
 
 
@@ -240,8 +229,18 @@ if (document.getElementById("next")) {
             return;
         }
 
-        // Check correct answer
-        if (answer === filtered[currentQuestion].correct) {
+        let q = filtered[currentQuestion];
+
+        // store user answer
+        userAnswers.push({
+            question: q.question,
+            correct: q.correct,
+            selected: answer,
+            options: q
+        });
+
+        // check score
+        if (answer === q.correct) {
             score++;
         }
 
@@ -277,7 +276,8 @@ function showResult() {
         "<h2>" + moduleNames[module] + "</h2>" +
         "<hr class='divider'>" +
         "<h2>Your Score: " + score + " / " + filtered.length + "</h2>" +
-        "<button onclick='location=\"module.html\"'>Back</button>";
+        "<button onclick='showReview()' class='greenbtn'>Review Answers</button>" +
+        "<button onclick='location=\"module.html\"' class='back-btn'>Back</button>";
 }
 
 
@@ -324,4 +324,78 @@ if (document.getElementById("resultData")) {
     }
 
     document.getElementById("resultData").innerHTML = output;
+}
+
+// ===============================
+// VIEW SOLUTION
+// ===============================
+let solutionBtn = document.getElementById("solutionBtn");
+if (solutionBtn) {
+    solutionBtn.onclick = function () {
+
+        let q = filtered[currentQuestion];
+
+        let correctAnswer = q[q.correct];
+
+        let box = document.getElementById("solutionText");
+
+        box.style.display = "block";
+        box.innerText = "Correct Answer: " + correctAnswer;
+    };
+}
+
+// ===============================
+// REVIEW PAGE
+// ===============================
+function showReview() {
+
+    let html = "<h2>Review Answers</h2><hr class='divider'>";
+
+    for (let i = 0; i < userAnswers.length; i++) {
+
+        let item = userAnswers[i];
+
+        let correctText = escapeHTML(item.options[item.correct]);
+        let selectedText = escapeHTML(item.options[item.selected]);
+
+        html += "<p><b>Q" + (i + 1) + ":</b> " + item.question + "</p>";
+
+        if (item.selected === item.correct) {
+            html += "<p style='color:green;'>Your Answer: " + selectedText + "</p>";
+        } else {
+            html += "<p style='color:red;'>Your Answer: " + selectedText + "</p>";
+        }
+
+        html += "<p>Correct Answer: " + correctText + "</p>";
+        html += "<hr>";
+    }
+
+    html += "<button onclick='location=\"module.html\"' class='back-btn'>Back</button>";
+
+    document.querySelector(".quiz-container").innerHTML = html;
+}
+
+// ===============================
+// get selected answer
+// ===============================
+function getSelectedAnswer() {
+
+    let options = document.getElementsByName("answer");
+
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].checked) {
+            return options[i].value;
+        }
+    }
+
+    return null;
+}
+
+// ===============================
+// covert html tags
+// ===============================
+function escapeHTML(text) {
+    return text
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 }

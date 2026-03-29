@@ -198,7 +198,9 @@ button:hover {
     background: #5a67d8;
 }
 
-
+.greenbtn {
+    background-color: #28a745;
+}
 /* Logout button (small) */
 .logout-btn {
     width: auto;
