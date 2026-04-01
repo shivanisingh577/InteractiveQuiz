@@ -1,337 +1,426 @@
-/* ===============================
-   RESET (Remove default spacing)
-================================= */
+/* =========================
+   RESET + BASE
+========================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
 
-/* ===============================
-   BODY (Center layout + background)
-================================= */
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-
-    height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6fb;
+    color: #222;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
-
-/* ===============================
-  MAIN CONTAINER (Card UI)
-================================= */
-.quiz-container {
-    background: #ffffff;
-    width: 420px;
-    padding: 25px;
-    border-radius: 15px;
-
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-
-    animation: fadeIn 0.5s ease-in-out;
+/* =========================
+   HEADER
+========================= */
+.header {
+    background: #1e293b;
+    color: white;
+    padding: 15px 30px;
 }
 
-
-/* ===============================
-    TOP BAR (Username + Logout)
-================================= */
-.top-bar {
+.header-content {
+    max-width: 1200px;
+    margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
 }
 
-
-/* ===============================
-   HEADINGS
-================================= */
-h1, h2, h3 {
-    text-align: center;
-    color: #333;
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-h1 {
-    font-size: 20pt;
-    margin-bottom: 15px;
-}
-
-h2 {
-    font-size: 18pt;
-    margin: 10px 0;
-}
-
-h3 {
-    font-size: 14pt;
-}
-
-
-/* ===============================
-   CHAPTER TEXT
-================================= */
-#chapter {
-    text-align: center;
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 5px;
-}
-
-
-/* ===============================
-   DIVIDER LINE
-================================= */
-.divider {
+.logout-btn {
+    background: #ef4444;
     border: none;
-    height: 2px;
-    background: linear-gradient(to right, #667eea, #764ba2);
-    margin: 10px 0 15px;
+    padding: 6px 12px;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-
-/* ===============================
-   PROGRESS TEXT
-================================= */
-#progress {
+/* =========================
+   FOOTER (STICKY)
+========================= */
+.footer {
+    background: #1e293b;
+    color: white;
     text-align: center;
+    padding: 12px;
+    margin-top: auto;
+}
+
+/* =========================
+   MAIN
+========================= */
+.main-container {
+    flex: 1;
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+/* =========================
+   FORM (LOGIN/REGISTER)
+========================= */
+.form-box {
+    max-width: 400px;
+    margin: 80px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.form-box h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.form-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.form-box button {
+    width: 100%;
+    padding: 10px;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+}
+
+/* =========================
+   MODULE PAGE
+========================= */
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+    gap: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.module-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.module-title {
     font-weight: 600;
-    color: #667eea;
     margin-bottom: 10px;
 }
 
+/* Practice sets */
+.set-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
 
-/* ===============================
-   QUESTION
-================================= */
-#question {
-    font-size: 18px;
-    margin-bottom: 15px;
+.set-buttons button {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    background: #6366f1;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    flex: 0 0 auto;
+}
+
+/* =========================
+   QUIZ PAGE
+========================= */
+.quiz-box {
+    max-width: 750px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+#moduleName {
     font-weight: 600;
 }
 
-
-/* ===============================
-   OPTIONS LIST
-================================= */
-ul {
-    list-style: none;
-    padding: 0;
+#chapter {
+    color: #666;
+    margin-bottom: 10px;
 }
 
-ul li {
-    margin: 10px 0;
+.divider {
+    margin: 10px 0 15px;
+    border: none;
+    height: 1px;
+    background: #eee;
 }
 
+#progress {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
 
-/* ===============================
-   OPTION BOX
-================================= */
+#question {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* OPTIONS */
 .option {
     display: block;
-    padding: 12px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
+    margin-bottom: 8px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-/* Hover effect */
-.option:hover {
-    background: #f1f3ff;
-    border-color: #667eea;
-}
-
-/* Hide radio button */
 .option input {
     display: none;
 }
 
+.option:hover {
+    background: #eef2ff;
+}
+
 /* Selected option */
 .option input:checked + span {
-    background: #667eea;
-    color: white;
-    padding: 10px;
-    border-radius: 6px;
     display: block;
-}
-
-
-/* ===============================
-   CORRECT / WRONG COLORS
-================================= */
-.correct {
-    background: #28a745 !important;
+    background: #6366f1;
     color: white;
+    padding: 8px;
+    border-radius: 6px;
 }
 
-.wrong {
-    background: #dc3545 !important;
-    color: white;
-}
-
-
-/* ===============================
+/* =========================
    BUTTONS
-================================= */
-button {
-    width: 100%;
-    padding: 12px;
+========================= */
+.quiz-buttons {
+    display: flex;
+    gap: 10px;
     margin-top: 15px;
-
-    background: #667eea;
-    color: white;
-
-    border: none;
-    border-radius: 8px;
-
-    cursor: pointer;
-    transition: 0.3s;
 }
 
-/* Hover */
-button:hover {
-    background: #5a67d8;
-}
-
-.greenbtn {
-    background-color: #28a745;
-}
-/* Logout button (small) */
-.logout-btn {
-    width: auto;
-    padding: 6px 12px;
-    font-size: 13px;
-    background: #dc3545;
-}
-
-
-/* Back button */
-.back-btn {
-    background: #6c757d;
-}
-
-
-/* ===============================
-   FORM (Login/Register)
-================================= */
-.form-container {
-    width: 320px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-}
-
-/* Input fields */
-input {
-    width: 100%;
+.quiz-buttons button {
+    flex: 1;
     padding: 10px;
-    margin: 8px 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
-    border: 1px solid #ccc;
+/* PRIMARY (like Next button) */
+/* Reuse same button system */
+.primary-btn {
+    background: #6366f1;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* SECONDARY (like Back) */
+.secondary-btn {
+    background: #94a3b8;
+    color: white;
+}
+
+#next {
+    flex: 1;
+    padding: 10px;
+    background: #6366f1;
+    color: white;
+    border: none;
     border-radius: 6px;
 }
 
+#solutionBtn {
+    flex: 1;
+    padding: 10px;
+   background: #22c55e;   /* GREEN */
+    color: white;
+    border: none;
+    border-radius: 6px;
+}
 
-/* ===============================
-   MODULE BUTTON (2-line UI)
-================================= */
-.module-btn {
-    text-align: left;
-    padding: 12px;
+.back-btn {
+    width: 100%;
     margin-top: 10px;
-    border-radius: 10px;
+    padding: 10px;
+    background: #94a3b8;
+    color: white;
+    border: none;
+    border-radius: 6px;
 }
 
-.module-btn .code {
-    display: block;
+.score-text {
+    text-align: center;
+    font-size: 28px;
     font-weight: bold;
+    margin: 20px 0;
+}
+/* Score Circle */
+.score-circle {
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+    border-radius: 50%;
+    background: #22c55e;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Score text below circle */
+.score-subtext {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.grade-label {
+    text-align: center;
     font-size: 14px;
+    color: #64748b;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+/* Center button below modules */
+.module-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+.module-actions button {
+    min-width: 200px;
+}
+/* =========================
+   SOLUTION BOX
+========================= */
+.solution-box {
+    margin-top: 10px;
+    padding: 10px;
+    background: #ecfdf5;
+    border-left: 4px solid green;
 }
 
-.title {
-    display: block;
-    font-size: 13px;
+.danger-btn {
+    background: #ef4444;
+    color: white;
 }
 
-/* ===============================
-   PERFORMANCE PAGE
-================================= */
+/* =========================
+   PERFORMANCE
+========================= */
 .performance-grid {
     display: grid;
-    gap: 12px;
-    margin-top: 15px;
+    gap: 15px;
 }
 
 .performance-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
-
-/* Left content */
-.card-content h4 {
-    font-size: 14px;
-    margin-bottom: 5px;
 }
 
 .score-line {
-    font-size: 13px;
     color: #555;
 }
 
-/* Grade (right side big) */
+/* =========================
+   TITLES
+========================= */
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+
+    .modules-grid {
+        grid-template-columns: 1fr; /* 1 per row */
+    }
+
+    .quiz-buttons {
+        flex-direction: column;
+    }
+}
+
+/* MODULE CARD */
+.module-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.module-card h3 {
+    margin-bottom: 10px;
+}
+
+/* SET LIST */
+.set-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* EACH SET ROW */
+.set-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f8fafc;
+    border-radius: 6px;
+}
+
+/* GRADE BADGE */
 .grade {
-    font-size: 32px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
 }
 
-/* Grade colors */
-.grade.A { color: #28a745; }
-.grade.B { color: #ffc107; }
-.grade.C { color: #dc3545; }
-
-
-/* ===============================
-   ANIMATION
-================================= */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* ===============================
-   RESPONSIVE (Mobile)
-================================= */
-@media (max-width: 500px) {
-
-    .quiz-container {
-        width: 90%;
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 18pt;
-    }
-
-    #question {
-        font-size: 16px;
-    }
-}
+/* COLORS */
+.grade.A { background: #22c55e; }
+.grade.B { background: #f59e0b; }
+.grade.C { background: #ef4444; }

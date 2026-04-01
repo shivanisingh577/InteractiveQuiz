@@ -1,5 +1,5 @@
 // ===============================
-// USER REGISTER FUNCTION
+// REGISTER
 // ===============================
 function register(event) {
     event.preventDefault();
@@ -24,13 +24,11 @@ function register(event) {
     localStorage.setItem("users", JSON.stringify(users));
 
     alert("Registration Successful!");
-
     window.location.href = "index.html";
 }
 
-
 // ===============================
-// USER LOGIN FUNCTION
+// LOGIN
 // ===============================
 function login(event) {
     event.preventDefault();
@@ -46,81 +44,60 @@ function login(event) {
         localStorage.setItem("currentUser", username);
 
         alert("Login Successful!");
-
         window.location.href = "module.html";
 
     } else {
         alert("Invalid Username or Password");
     }
 }
-
-
 // ===============================
-// LOGOUT FUNCTION
-// ===============================
-function logout() {
-    localStorage.removeItem("loggedIn");
-    localStorage.removeItem("currentUser");
-    window.location.href = "index.html";
-}
-
-
-// ===============================
-// CHECK LOGIN & SHOW USERNAME
+// CHECK LOGIN & SHOW USER
 // ===============================
 function checkLoginAndShowUser() {
 
     let isLoggedIn = localStorage.getItem("loggedIn");
     let user = localStorage.getItem("currentUser");
 
-    // If not logged in → go to login page
     if (isLoggedIn !== "true") {
         window.location.href = "index.html";
         return;
     }
 
-    // Show username on screen
-    let welcomeText = document.getElementById("welcome");
-
-    if (welcomeText) {
-        welcomeText.innerText = "Welcome, " + user;
+    let welcome = document.getElementById("welcome");
+    if (welcome) {
+        welcome.innerText = "Welcome, " + user;
     }
 }
 
-
-// Run this on pages where username is shown
 if (document.getElementById("welcome")) {
     checkLoginAndShowUser();
 }
 
-
 // ===============================
-// MODULE SELECTION
+// START QUIZ (MODULE + SET)
 // ===============================
-function startQuiz(moduleCode) {
+function startQuiz(moduleCode, setCode) {
 
-    // Save selected module
     localStorage.setItem("module", moduleCode);
+    localStorage.setItem("set", setCode);
 
-    // Go to quiz page
     window.location.href = "quiz.html";
 }
-
 
 // ===============================
 // NAVIGATION
 // ===============================
+function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+}
+
 function viewPerformance() {
     window.location.href = "performance.html";
 }
 
-function goBack() {
-    window.location.href = "module.html";
-}
-
-
 // ===============================
-// MODULE FULL NAMES
+// MODULE NAMES
 // ===============================
 const moduleNames = {
     "M1": "M1-R5.1: Information Technology Tools and Network Basics",
@@ -128,7 +105,6 @@ const moduleNames = {
     "M3": "M3-R5.1: Programming and Problem Solving through Python",
     "M4": "M4-R5.1: Internet of Things and its Applications"
 };
-
 
 // ===============================
 // CHAPTER NAMES
@@ -160,23 +136,31 @@ const chapterNames = {
     "M4-Ch6": "Soft Skills & Personality Development"
 };
 
-
 // ===============================
 // QUIZ VARIABLES
 // ===============================
-// store all answers of user
-let userAnswers = [];
+let module = localStorage.getItem("module");
+let set = localStorage.getItem("set");
+
+// Safety check
+// if (!module || !set) {
+//     alert("Please select module and set first");
+//     window.location.href = "module.html";
+// }
+
+// Filter questions
+let filtered = (typeof quizData !== "undefined")
+    ? quizData.filter(q => q.module === module && q.set === set)
+    : [];
+
+if (filtered.length === 0) {
+    console.log("No questions found");
+}
+
+// Variables
 let currentQuestion = 0;
 let score = 0;
-
-// Get selected module
-let module = localStorage.getItem("module");
-
-// Filter questions based on module
-if (!quizData || !module) {
-    console.log("Quiz data or module missing");
-}
-let filtered = quizData.filter(q => q.module === module);
+let userAnswers = [];
 
 // ===============================
 // LOAD QUESTION
@@ -185,36 +169,50 @@ function loadQuestion() {
 
     let q = filtered[currentQuestion];
 
+    document.getElementById("moduleName").innerText =
+        moduleNames[module] + " - " + set;
+
     document.getElementById("question").innerText = q.question;
+
     document.getElementById("a").innerText = q.a;
     document.getElementById("b").innerText = q.b;
     document.getElementById("c").innerText = q.c;
     document.getElementById("d").innerText = q.d;
 
-    // Show module name
-    document.getElementById("moduleName").innerText = moduleNames[module];
-
-    // Show chapter name
+    // Chapter name
     let key = module + "-" + q.chapter;
-    document.getElementById("chapter").innerText = "Chapter: " + chapterNames[key];
+    document.getElementById("chapter").innerText =
+        "Chapter: " + (chapterNames[key] || q.chapter);
 
-    // Show progress
     document.getElementById("progress").innerText =
         "Question " + (currentQuestion + 1) + "/" + filtered.length;
 
-    // Clear previous selection
-let options = document.getElementsByName("answer");
-for (let i = 0; i < options.length; i++) {
-    options[i].checked = false;
-}
+    // Clear selection
+    document.querySelectorAll('input[name="answer"]').forEach(o => o.checked = false);
 
-let solutionText = document.getElementById("solutionText");
-if (solutionText) solutionText.style.display = "none";
+    // Hide solution
+    let box = document.getElementById("solutionText");
+    if (box) box.style.display = "none";
 }
-
 
 // ===============================
-// NEXT BUTTON LOGIC
+// GET SELECTED ANSWER
+// ===============================
+function getSelectedAnswer() {
+
+    let options = document.getElementsByName("answer");
+
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].checked) {
+            return options[i].value;
+        }
+    }
+
+    return null;
+}
+
+// ===============================
+// NEXT BUTTON
 // ===============================
 if (document.getElementById("next")) {
 
@@ -231,7 +229,7 @@ if (document.getElementById("next")) {
 
         let q = filtered[currentQuestion];
 
-        // store user answer
+        // Store answer
         userAnswers.push({
             question: q.question,
             correct: q.correct,
@@ -239,7 +237,7 @@ if (document.getElementById("next")) {
             options: q
         });
 
-        // check score
+        // Score check
         if (answer === q.correct) {
             score++;
         }
@@ -254,7 +252,6 @@ if (document.getElementById("next")) {
     };
 }
 
-
 // ===============================
 // SHOW RESULT
 // ===============================
@@ -262,74 +259,52 @@ function showResult() {
 
     let user = localStorage.getItem("currentUser");
 
-    let allResults = JSON.parse(localStorage.getItem("results")) || {};
+    let results = JSON.parse(localStorage.getItem("results")) || {};
 
-    if (!allResults[user]) {
-        allResults[user] = {};
-    }
+    if (!results[user]) results[user] = {};
+    if (!results[user][module]) results[user][module] = {};
 
-    allResults[user][module] = score;
+    results[user][module][set] = score;
 
-    localStorage.setItem("results", JSON.stringify(allResults));
+    localStorage.setItem("results", JSON.stringify(results));
 
-    document.querySelector(".quiz-container").innerHTML =
-        "<h2>" + moduleNames[module] + "</h2>" +
-        "<hr class='divider'>" +
-        "<h2>Your Score: " + score + " / " + filtered.length + "</h2>" +
-        "<button onclick='showReview()' class='greenbtn'>Review Answers</button>" +
-        "<button onclick='location=\"module.html\"' class='back-btn'>Back</button>";
+   let percent = Math.round((score / filtered.length) * 100);
+
+// Grade logic
+let grade = "C";
+let color = "#ef4444"; // red
+
+if (percent >= 70) {
+    grade = "A";
+    color = "#22c55e"; // green
+} else if (percent >= 40) {
+    grade = "B";
+    color = "#f59e0b"; // yellow
 }
 
+document.querySelector(".quiz-box").innerHTML =
+    `<h3>${moduleNames[module]} - ${set}</h3>
+     <hr class="divider">
 
-// ===============================
-// PERFORMANCE PAGE
-// ===============================
-if (document.getElementById("resultData")) {
+     <div class="score-circle" style="background:${color}">
+        ${grade}
+     </div>
+     <p class="grade-label">Grade</p>
+     <p class="score-subtext">
+        Score: ${score} / ${filtered.length}
+     </p>
 
-    let user = localStorage.getItem("currentUser");
-    let allResults = JSON.parse(localStorage.getItem("results")) || {};
-    let data = allResults[user];
-
-    let output = "";
-
-    if (data) {
-
-        for (let m in data) {
-
-            let score = data[m];
-            let total = quizData.filter(q => q.module === m).length;
-
-            let percent = Math.round((score / total) * 100);
-
-            let grade = "C";
-            if (percent >= 70) grade = "A";
-            else if (percent >= 40) grade = "B";
-
-            output += `
-            <div class="performance-card">
-                <div class="card-content">
-                    <h4>${moduleNames[m]}</h4>
-                    <p class="score-line">
-                        Score: ${score}/${total} | Percentage: ${percent}%
-                    </p>
-                </div>
-                <div class="grade ${grade}">
-                    ${grade}
-                </div>
-            </div>`;
-        }
-
-    } else {
-        output = "<p>No performance data available</p>";
-    }
-
-    document.getElementById("resultData").innerHTML = output;
+     <div class="quiz-buttons">
+        <button class="primary-btn" onclick="showReview()">Review Answers</button>
+        <button class="secondary-btn" onclick="location='module.html'">Back to Modules</button>
+     </div>`;
 }
 
 // ===============================
 // VIEW SOLUTION
 // ===============================
 let solutionBtn = document.getElementById("solutionBtn");
+
 if (solutionBtn) {
     solutionBtn.onclick = function () {
 
@@ -349,7 +324,7 @@ if (solutionBtn) {
 // ===============================
 function showReview() {
 
-    let html = "<h2>Review Answers</h2><hr class='divider'>";
+    let html = "<h3>Review Answers</h3><hr class='divider'>";
 
     for (let i = 0; i < userAnswers.length; i++) {
 
@@ -370,32 +345,86 @@ function showReview() {
         html += "<hr>";
     }
 
-    html += "<button onclick='location=\"module.html\"' class='back-btn'>Back</button>";
+   html += `
+<div class="quiz-buttons">
+    <button class="secondary-btn" onclick="location='module.html'">Back to Modules</button>
+</div>`;
 
-    document.querySelector(".quiz-container").innerHTML = html;
+    document.querySelector(".quiz-box").innerHTML = html;
 }
 
 // ===============================
-// get selected answer
-// ===============================
-function getSelectedAnswer() {
-
-    let options = document.getElementsByName("answer");
-
-    for (let i = 0; i < options.length; i++) {
-        if (options[i].checked) {
-            return options[i].value;
-        }
-    }
-
-    return null;
-}
-
-// ===============================
-// covert html tags
+// ESCAPE HTML (IMPORTANT FIX)
 // ===============================
 function escapeHTML(text) {
     return text
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
+}
+
+function exitQuiz() {
+
+    let confirmExit = confirm("Are you sure you want to exit the quiz?");
+
+    if (confirmExit) {
+        window.location.href = "module.html";
+    }
+}
+
+// ===============================
+// PERFORMANCE PAGE (GROUPED)
+// ===============================
+if (document.getElementById("resultData")) {
+
+    let user = localStorage.getItem("currentUser");
+    let allResults = JSON.parse(localStorage.getItem("results")) || {};
+    let data = allResults[user];
+
+    let output = "";
+
+    if (data) {
+
+        for (let m in data) {
+
+            output += `
+            <div class="module-card">
+                <h3>${moduleNames[m]}</h3>
+                <div class="set-list">`;
+
+            for (let s in data[m]) {
+
+                let score = data[m][s];
+
+let actualTotal = quizData.filter(q => q.module === m && q.set === s).length;
+
+// Use 100 if full set, else actual
+let total = actualTotal < 100 ? actualTotal : 100;
+
+let percent = Math.round((score / total) * 100);
+let grade = "C";
+if (percent >= 70) grade = "A";
+else if (percent >= 40) grade = "B";
+
+                output += `
+                <div class="set-row">
+                    <div>
+                        <strong>${s}</strong><br>
+                        Score: ${score}/${total}
+                    </div>
+                    <div class="grade ${grade}">
+                        ${grade}
+                    </div>
+                </div>`;
+            }
+
+            output += `
+                </div>
+            </div>`;
+        }
+
+    } else {
+        output = "<p>No performance data available</p>";
+    }
+
+    document.getElementById("resultData").innerHTML = output;
 }

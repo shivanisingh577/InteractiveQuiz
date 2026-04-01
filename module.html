@@ -1,52 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Select Module - Interactive Quiz</title>
+    <title>O Level Interactive Quiz</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="quiz-container">
+<!-- HEADER -->
+<div class="header">
+    <div class="header-content">
+        <h2>O Level Interactive Quiz</h2>
+        <div class="user-section">
+            <span id="welcome"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+</div>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <span id="welcome"></span>
-        <button onclick="logout()" class="logout-btn">Logout</button>
+<!-- MAIN -->
+<div class="main-container">
+
+    <h2 class="page-title">Select Module & Practice Set</h2>
+
+    <div class="modules-grid">
+
+        <!-- M1 -->
+        <div class="module-card">
+            <div class="module-title">
+                M1-R5.1: Information Technology Tools and Network Basics
+            </div>
+
+            <div class="set-buttons">
+                <button onclick="startQuiz('M1','Set1')">Set 1</button>
+                <button onclick="startQuiz('M1','Set2')">Set 2</button>
+                <button onclick="startQuiz('M1','Set3')">Set 3</button>
+                <button onclick="startQuiz('M1','Set4')">Set 4</button>
+                <button onclick="startQuiz('M1','Set5')">Set 5</button>
+            </div>
+        </div>
+
+        <!-- M2 -->
+        <div class="module-card">
+            <div class="module-title">
+                M2-R5.1: Web Designing & Publishing
+            </div>
+
+            <div class="set-buttons">
+                <button onclick="startQuiz('M2','Set1')">Set 1</button>
+                <button onclick="startQuiz('M2','Set2')">Set 2</button>
+                <button onclick="startQuiz('M2','Set3')">Set 3</button>
+                <button onclick="startQuiz('M2','Set4')">Set 4</button>
+                <button onclick="startQuiz('M2','Set5')">Set 5</button>
+            </div>
+        </div>
+
+        <!-- M3 -->
+        <div class="module-card">
+            <div class="module-title">
+                M3-R5.1: Programming and Problem Solving through Python
+            </div>
+
+            <div class="set-buttons">
+                <button onclick="startQuiz('M3','Set1')">Set 1</button>
+                <button onclick="startQuiz('M3','Set2')">Set 2</button>
+                <button onclick="startQuiz('M3','Set3')">Set 3</button>
+                <button onclick="startQuiz('M3','Set4')">Set 4</button>
+                <button onclick="startQuiz('M3','Set5')">Set 5</button>
+            </div>
+        </div>
+
+        <!-- M4 -->
+        <div class="module-card">
+            <div class="module-title">
+                M4-R5.1: Internet of Things and its Applications
+            </div>
+
+            <div class="set-buttons">
+                <button onclick="startQuiz('M4','Set1')">Set 1</button>
+                <button onclick="startQuiz('M4','Set2')">Set 2</button>
+                <button onclick="startQuiz('M4','Set3')">Set 3</button>
+                <button onclick="startQuiz('M4','Set4')">Set 4</button>
+                <button onclick="startQuiz('M4','Set5')">Set 5</button>
+            </div>
+        </div>
+
     </div>
 
-    <h2>Select Module</h2>
-     <hr class="divider">
+    <br>
     
-
-    <!-- Module Buttons -->
-
-    <button onclick="startQuiz('M1')" class="module-btn">
-        <span class="code">M1-R5.1</span>
-        <span class="title">Information Technology Tools & Network Basics</span>
+    <div class="module-actions">
+    <button onclick="viewPerformance()" class="primary-btn">
+        View Performance
     </button>
-
-    <button onclick="startQuiz('M2')" class="module-btn">
-        <span class="code">M2-R5.1</span>
-        <span class="title">Web Designing & Publishing</span>
-    </button>
-
-    <button onclick="startQuiz('M3')" class="module-btn">
-        <span class="code">M3-R5.1</span>
-        <span class="title">Programming & Problem Solving through Python</span>
-    </button>
-
-    <button onclick="startQuiz('M4')" class="module-btn">
-        <span class="code">M4-R5.1</span>
-        <span class="title">Internet of Things & its Applications</span>
-    </button>
-
-    <button onclick="viewPerformance()" class="back-btn">View Performance</button>
+</div>
 
 </div>
 
-<script src="script.js"></script>
+<!-- FOOTER -->
+<div class="footer">
+    <p>© 2026 O Level Quiz</p>
+</div>
 
+<script src="script.js"></script>
 </body>
 </html>

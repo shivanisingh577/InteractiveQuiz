@@ -1,80 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quiz - Interactive Quiz</title>
+    <title>O Level Interactive Quiz</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="quiz-container">
+<!-- HEADER -->
+<div class="header">
+    <div class="header-content">
+        <h2>O Level Interactive Quiz</h2>
+        <div class="user-section">
+            <span id="welcome"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+</div>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <span id="welcome"></span>
-        <button onclick="logout()" class="logout-btn">Logout</button>
+<!-- MAIN -->
+<div class="main-container">
+
+    <div class="quiz-box">
+
+        <h3 id="moduleName"></h3>
+        <p id="chapter"></p>
+        <hr class="divider">
+
+        <p id="progress"></p>
+
+        <h4 id="question"></h4>
+
+        <label class="option">
+            <input type="radio" name="answer" value="a">
+            <span id="a"></span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="answer" value="b">
+            <span id="b"></span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="answer" value="c">
+            <span id="c"></span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="answer" value="d">
+            <span id="d"></span>
+        </label>
+
+        <div class="quiz-buttons">
+    <button id="next" class="primary-btn">Next</button>
+    <button id="solutionBtn" class="secondary-btn">View Solution</button>
+    <button onclick="exitQuiz()" class="danger-btn">Exit</button>
+</div>
+
+        <div id="solutionText" class="solution-box"></div>
+
     </div>
 
-    <!-- Module Name -->
-    <h3 id="moduleName"></h3>
+</div>
 
-    <!-- Chapter -->
-    <p id="chapter"></p>
-
-    <!-- Divider -->
-    <hr class="divider">
-
-    <!-- Progress -->
-    <p id="progress"></p>
-
-    <!-- Question -->
-    <h2 id="question"></h2>
-
-    <!-- Options -->
-    <ul>
-        <li>
-            <label class="option">
-                <input type="radio" name="answer" value="a">
-                <span id="a"></span>
-            </label>
-        </li>
-
-        <li>
-            <label class="option">
-                <input type="radio" name="answer" value="b">
-                <span id="b"></span>
-            </label>
-        </li>
-
-        <li>
-            <label class="option">
-                <input type="radio" name="answer" value="c">
-                <span id="c"></span>
-            </label>
-        </li>
-
-        <li>
-            <label class="option">
-                <input type="radio" name="answer" value="d">
-                <span id="d"></span>
-            </label>
-        </li>
-    </ul>
-
-    <!-- Next Button -->
-    <button id="next">Next</button>
-
-    <button id="solutionBtn" class="greenbtn">View Solution</button>
-<p id="solutionText" style="display:none;"></p>
-
-    <!-- Back Button -->
-    <button onclick="goBack()" class="back-btn">Back</button>
-
+<!-- FOOTER -->
+<div class="footer">
+    <p>© 2026 O Level Quiz</p>
 </div>
 
 <script src="quizData.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>

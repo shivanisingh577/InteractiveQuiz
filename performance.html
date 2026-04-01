@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Performance - Interactive Quiz</title>
+    <title>O Level Interactive Quiz</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="checkLoginAndShowUser()">
 
-<div class="quiz-container">
-
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <span id="welcome"></span>
-        <button onclick="logout()" class="logout-btn">Logout</button>
+<header class="header">
+    <div class="header-content">
+        <h2>O Level Interactive Quiz</h2>
+        <div class="user-section">
+            <span id="welcome"></span>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </div>
     </div>
+</header>
 
-    <h2>Your Performance</h2>
+<main class="main-container">
 
-    <hr class="divider">
+    <h2 class="page-title">Your Performance</h2>
 
-    <!-- Performance Data -->
     <div id="resultData" class="performance-grid"></div>
 
-    <button onclick="goBack()" class="back-btn">Back</button>
+    <div class="quiz-buttons">
+        <button onclick="location='module.html'" class="secondary-btn">Back to Modules</button>
+    </div>
 
-</div>
+</main>
+
+<footer class="footer">
+    <p>© 2026 O Level Interactive Quiz</p>
+</footer>
 
 <script src="quizData.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
