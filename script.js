@@ -271,17 +271,22 @@ function showResult() {
    let percent = Math.round((score / filtered.length) * 100);
    let grade = getGrade(percent);
 
-document.querySelector(".quiz-box").innerHTML =
-    "<h3>" + moduleNames[module] + "</h3>" +
-    "<hr class='divider'>" +
+document.querySelector(".quiz-box").innerHTML = `
+    <h3>${moduleNames[module]}</h3>
+    <hr class="divider">
 
-    "<div class='score-circle'>" + grade + "</div>" +
-    "<div class='grade-label'>Grade</div>" +
-   
-    "<div class='score-subtext'>Score: " + score + " / " + filtered.length + "</div>" +
+    <div class="score-circle">${grade}</div>
+    <div class="grade-label">Grade</div>
 
-    "<button onclick='showReview()' class='primary-btn'>Review Answers</button>" +
-    "<button onclick='location=\"module.html\"' class='secondary-btn'>Back to Modules</button>";
+    <div class="score-subtext">
+        Score: ${score} / ${filtered.length}
+    </div>
+
+    <div class="quiz-buttons">
+        <button onclick="showReview()" class="primary-btn">Review Answers</button>
+        <button onclick="location.href='module.html'" class="secondary-btn">Back to Modules</button>
+    </div>
+`;
 }
 
 // ===============================
