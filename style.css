@@ -364,42 +364,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;       /* Stack headline and user-section */
-        align-items: stretch;         /* Make full width */
-        gap: 10px;                    /* Space between rows */
-    }
-    /* Center the headline */
-    .header-content h2 {
-        text-align: center;
-        width: 100%;
-    }
-
-    .user-section {
-        justify-content: space-between; /* Welcome left, logout right */
-        width: 100%;
-    }
-
-    .user-section span#welcome {
-        text-align: left;
-    }
-
-    .logout-btn {
-        text-align: right;
-    }
-
-    .modules-grid {
-        grid-template-columns: 1fr; /* 1 per row */
-    }
-
-    .quiz-buttons {
-        flex-direction: column;
-    }
-}
 
 /* MODULE CARD */
 .module-card {
@@ -447,3 +411,40 @@ body {
 .grade.A { background: #22c55e; }
 .grade.B { background: #f59e0b; }
 .grade.C { background: #ef4444; }
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;       /* Stack headline and user-section */
+        align-items: stretch;         /* Make full width */
+        gap: 10px;                    /* Space between rows */
+    }
+    /* Center the headline */
+    .header-content h2 {
+        text-align: center;
+        width: 100%;
+    }
+
+    .user-section {
+        justify-content: space-between; /* Welcome left, logout right */
+        width: 100%;
+    }
+
+    .user-section span#welcome {
+        text-align: left;
+    }
+
+    .logout-btn {
+        text-align: right;
+    }
+
+    .modules-grid {
+        grid-template-columns: 1fr; /* 1 per row */
+    }
+
+    .quiz-buttons {
+        flex-direction: column;
+    }
+}
