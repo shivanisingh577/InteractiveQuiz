@@ -36,5 +36,13 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+window.onload = function() {
+    let rememberedUser = localStorage.getItem("currentUser");
+    if (rememberedUser) {
+        document.getElementById("username").value = rememberedUser;
+    }
+};
+</script>
 </body>
 </html>

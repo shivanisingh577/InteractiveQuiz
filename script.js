@@ -54,15 +54,16 @@ function login(event) {
 // CHECK LOGIN & SHOW USER
 // ===============================
 function checkLoginAndShowUser() {
-
     let isLoggedIn = localStorage.getItem("loggedIn");
     let user = localStorage.getItem("currentUser");
 
     if (isLoggedIn !== "true") {
+        // Session expired, redirect to login page
         window.location.href = "index.html";
         return;
     }
 
+    // Show welcome message
     let welcome = document.getElementById("welcome");
     if (welcome) {
         welcome.innerText = "Welcome, " + user;
@@ -88,7 +89,12 @@ function startQuiz(moduleCode, setCode) {
 // NAVIGATION
 // ===============================
 function logout() {
-    localStorage.clear();
+    // Expire session only
+    localStorage.removeItem("loggedIn");  // session expired
+    localStorage.removeItem("module");    // clear selected module
+    localStorage.removeItem("set");       // clear selected set
+
+    // Keep currentUser so it can be remembered
     window.location.href = "index.html";
 }
 
@@ -141,12 +147,6 @@ const chapterNames = {
 // ===============================
 let module = localStorage.getItem("module");
 let set = localStorage.getItem("set");
-
-// Safety check
-// if (!module || !set) {
-//     alert("Please select module and set first");
-//     window.location.href = "module.html";
-// }
 
 // Filter questions
 let filtered = (typeof quizData !== "undefined")
