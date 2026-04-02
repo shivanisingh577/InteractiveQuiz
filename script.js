@@ -271,7 +271,7 @@ function showResult() {
    let percent = Math.round((score / filtered.length) * 100);
    let grade = getGrade(percent);
 
-document.querySelector(".quiz-container").innerHTML =
+document.querySelector(".quiz-box").innerHTML =
     "<h3>" + moduleNames[module] + "</h3>" +
     "<hr class='divider'>" +
 
