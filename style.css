@@ -400,17 +400,22 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    color: white;
+    
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-weight: bold;
+    color: white;
 }
 
-/* COLORS */
+/* Different background colors */
+.grade.S { background: #0f7f38; }   /* Dark Green */
 .grade.A { background: #22c55e; }
 .grade.B { background: #f59e0b; }
-.grade.C { background: #ef4444; }
+.grade.C { background: #d9e011; }
+.grade.D { background: #ef4444; }
+.grade.F { background: #7f1d1d; }
 
 /* =========================
    RESPONSIVE

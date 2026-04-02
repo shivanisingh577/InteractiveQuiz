@@ -269,35 +269,19 @@ function showResult() {
     localStorage.setItem("results", JSON.stringify(results));
 
    let percent = Math.round((score / filtered.length) * 100);
+   let grade = getGrade(percent);
 
-// Grade logic
-let grade = "C";
-let color = "#ef4444"; // red
+document.querySelector(".quiz-container").innerHTML =
+    "<h3>" + moduleNames[module] + "</h3>" +
+    "<hr class='divider'>" +
 
-if (percent >= 70) {
-    grade = "A";
-    color = "#22c55e"; // green
-} else if (percent >= 40) {
-    grade = "B";
-    color = "#f59e0b"; // yellow
-}
+    "<div class='score-circle'>" + grade + "</div>" +
+    "<div class='grade-label'>Grade</div>" +
+   
+    "<div class='score-subtext'>Score: " + score + " / " + filtered.length + "</div>" +
 
-document.querySelector(".quiz-box").innerHTML =
-    `<h3>${moduleNames[module]} - ${set}</h3>
-     <hr class="divider">
-
-     <div class="score-circle" style="background:${color}">
-        ${grade}
-     </div>
-     <p class="grade-label">Grade</p>
-     <p class="score-subtext">
-        Score: ${score} / ${filtered.length}
-     </p>
-
-     <div class="quiz-buttons">
-        <button class="primary-btn" onclick="showReview()">Review Answers</button>
-        <button class="secondary-btn" onclick="location='module.html'">Back to Modules</button>
-     </div>`;
+    "<button onclick='showReview()' class='primary-btn'>Review Answers</button>" +
+    "<button onclick='location=\"module.html\"' class='secondary-btn'>Back to Modules</button>";
 }
 
 // ===============================
@@ -399,11 +383,8 @@ let actualTotal = quizData.filter(q => q.module === m && q.set === s).length;
 
 // Use 100 if full set, else actual
 let total = actualTotal < 100 ? actualTotal : 100;
-
 let percent = Math.round((score / total) * 100);
-let grade = "C";
-if (percent >= 70) grade = "A";
-else if (percent >= 40) grade = "B";
+let grade = getGrade(percent);
 
                 output += `
                 <div class="set-row">
@@ -427,4 +408,24 @@ else if (percent >= 40) grade = "B";
     }
 
     document.getElementById("resultData").innerHTML = output;
+}
+
+function getGrade(percent) {
+
+    if (percent < 50) return "F";
+    else if (percent < 55) return "D";
+    else if (percent < 65) return "C";
+    else if (percent < 75) return "B";
+    else if (percent < 85) return "A";
+    else return "S";
+}
+
+function getGradeLabel(grade) {
+
+    if (grade === "S") return "Excellent";
+    if (grade === "A") return "Very Good";
+    if (grade === "B") return "Good";
+    if (grade === "C") return "Average";
+    if (grade === "D") return "Pass";
+    return "Fail";
 }
